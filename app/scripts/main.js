@@ -41,61 +41,100 @@ DDD.max(numbers);
 DDD.max(stooges, func);
 
 
-var TEST2 = {};
+// DDD.invert()
 
-TEST2.map = function(obj, iteratee, context) {
-  if (obj == null) return [];
-  iteratee = function(value, context, argCount) {
-    if (value == null) return function(value) {
-    return value;
-  };
-    if (typeof value == 'function') return createCallback(value, context, argCount);
-    var matches = function(attrs) {
-      var pairs = _.pairs(attrs), length = pairs.length;
-      return function(obj) {
-        if (obj == null) return !length;
-        obj = new Object(obj);
-        for (var i = 0; i < length; i++) {
-          var pair = pairs[i], key = pair[0];
-          if (pair[1] !== obj[key] || !(key in obj)) return false;
-        }
-        return true;
-      };
-    };
-    var property = function(key) {
-      return function(obj) {
-        return obj[key];
-      };
-    };
-    if (typeof value == 'object') return matches(value);
-    return property(value);
-  };
-  var has = function(obj, key) {
-    return obj != null && hasOwnProperty.call(obj, key);
-  };
-  keysFunc = function(obj) {
-    if (!(typeof obj == "object")) return [];
-    if (nativeKeys) return nativeKeys(obj);
-    var keys = [];
-    for (var key in obj) if (has(obj, key)) keys.push(key);
-    return keys;
-  };
-  var keys = obj.length !== +obj.length && keysFunc(obj),
-      length = (keys || obj).length,
-      results = Array(length),
-      currentKey;
-  for (var index = 0; index < length; index++) {
-    currentKey = keys ? keys[index] : index;
-    results[index] = iteratee(obj[currentKey], currentKey, obj);
+DDD.invert = function(object){
+  // var invertedObject = [];
+  for (var x in object){
+    var hold = x;
+    x = object[x];
+    object[x] = hold;
   }
-  return results;
+  return object;
 };
 
-var newArray = [1, 2, 3, 4, 5];
+var names = {Moe: "Moses", Larry: "Louis", Curly: "Jerome"}
+DDD.invert(names);
 
-console.log(TEST2.map(newArray, function(x){
-  x + 3;
-}));
+
+// DDD.matches()
+
+
+//DDD.pairs()
+
+DDD.pairs = function(obj){
+  var keyValPairs = [];
+  for(var key in obj){
+    var x = [];
+    x.push(key);
+    x.push(obj[key]);
+    keyValPairs.push(x);
+  };
+  return keyValPairs;
+};
+
+DDD.pairs({one: "a", two: "b", three: "c"});
+
+
+
+
+
+
+// var TEST2 = {};
+//
+// TEST2.map = function(obj, iteratee, context) {
+//   if (obj == null) return [];
+//   iteratee = function(value, context, argCount) {
+//     if (value == null) return function(value) {
+//     return value;
+//   };
+//     if (typeof value == 'function') return createCallback(value, context, argCount);
+//     var matches = function(attrs) {
+//       var pairs = _.pairs(attrs), length = pairs.length;
+//       return function(obj) {
+//         if (obj == null) return !length;
+//         obj = new Object(obj);
+//         for (var i = 0; i < length; i++) {
+//           var pair = pairs[i], key = pair[0];
+//           if (pair[1] !== obj[key] || !(key in obj)) return false;
+//         }
+//         return true;
+//       };
+//     };
+//     var property = function(key) {
+//       return function(obj) {
+//         return obj[key];
+//       };
+//     };
+//     if (typeof value == 'object') return matches(value);
+//     return property(value);
+//   };
+//   var has = function(obj, key) {
+//     return obj != null && hasOwnProperty.call(obj, key);
+//   };
+//   keysFunc = function(obj) {
+//     if (!(typeof obj == "object")) return [];
+//     if (nativeKeys) return nativeKeys(obj);
+//     var keys = [];
+//     for (var key in obj) if (has(obj, key)) keys.push(key);
+//     return keys;
+//   };
+//   var keys = obj.length !== +obj.length && keysFunc(obj),
+//       length = (keys || obj).length,
+//       results = Array(length),
+//       currentKey;
+//   for (var index = 0; index < length; index++) {
+//     currentKey = keys ? keys[index] : index;
+//     results[index] = iteratee(obj[currentKey], currentKey, obj);
+//   }
+//   return results;
+// };
+//
+// var newArray = [1, 2, 3, 4, 5];
+//
+// console.log(TEST2.map(newArray, function(x){
+//   x + 3;
+// }));
 
 
 
