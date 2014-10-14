@@ -51,10 +51,8 @@ DDD.invert = function(object){
     var key = x;
     var value = object[x];
     invertedObject[value] = key;
-    invertedObject[value[key]] = key;
   };
-  // return invertedObject;
-  return (invertedObject);
+  return invertedObject;
 };
 
 var names = {Moe: "Moses", Larry: "Louis", Curly: "Jerome"}
