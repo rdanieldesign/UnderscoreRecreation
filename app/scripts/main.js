@@ -2,6 +2,7 @@
 
 var DDD = {};
 
+
 // DDD.max()
 
 DDD.max = function(list, property){
@@ -41,23 +42,23 @@ DDD.max(numbers);
 DDD.max(stooges, func);
 
 
-// DDD.invert()
+// DDD.invert(). Not sure how it works, but it almost does.
 
 DDD.invert = function(object){
-  // var invertedObject = [];
-  for (var x in object){
-    var hold = x;
-    x = object[x];
-    object[x] = hold;
-  }
-  return object;
+  // var invertedObject = {};
+  var invertedObject = {};
+  for(var x in object){
+    var key = x;
+    var value = object[x];
+    invertedObject[value] = key;
+    invertedObject[value[key]] = key;
+  };
+  // return invertedObject;
+  return (invertedObject);
 };
 
 var names = {Moe: "Moses", Larry: "Louis", Curly: "Jerome"}
 DDD.invert(names);
-
-
-// DDD.matches()
 
 
 //DDD.pairs()
@@ -76,80 +77,17 @@ DDD.pairs = function(obj){
 DDD.pairs({one: "a", two: "b", three: "c"});
 
 
+// DDD.without()
 
-
-
-
-// var TEST2 = {};
-//
-// TEST2.map = function(obj, iteratee, context) {
-//   if (obj == null) return [];
-//   iteratee = function(value, context, argCount) {
-//     if (value == null) return function(value) {
-//     return value;
-//   };
-//     if (typeof value == 'function') return createCallback(value, context, argCount);
-//     var matches = function(attrs) {
-//       var pairs = _.pairs(attrs), length = pairs.length;
-//       return function(obj) {
-//         if (obj == null) return !length;
-//         obj = new Object(obj);
-//         for (var i = 0; i < length; i++) {
-//           var pair = pairs[i], key = pair[0];
-//           if (pair[1] !== obj[key] || !(key in obj)) return false;
-//         }
-//         return true;
-//       };
-//     };
-//     var property = function(key) {
-//       return function(obj) {
-//         return obj[key];
-//       };
-//     };
-//     if (typeof value == 'object') return matches(value);
-//     return property(value);
-//   };
-//   var has = function(obj, key) {
-//     return obj != null && hasOwnProperty.call(obj, key);
-//   };
-//   keysFunc = function(obj) {
-//     if (!(typeof obj == "object")) return [];
-//     if (nativeKeys) return nativeKeys(obj);
-//     var keys = [];
-//     for (var key in obj) if (has(obj, key)) keys.push(key);
-//     return keys;
-//   };
-//   var keys = obj.length !== +obj.length && keysFunc(obj),
-//       length = (keys || obj).length,
-//       results = Array(length),
-//       currentKey;
-//   for (var index = 0; index < length; index++) {
-//     currentKey = keys ? keys[index] : index;
-//     results[index] = iteratee(obj[currentKey], currentKey, obj);
-//   }
-//   return results;
-// };
-//
-// var newArray = [1, 2, 3, 4, 5];
-//
-// console.log(TEST2.map(newArray, function(x){
-//   x + 3;
-// }));
-
-
-
-//Tims example: Random();
-
-var tim = {};
-
-tim.greeting = function(){
-  alert("hi");
+DDD.without = function (nums, remove) {
+  var newNums = [];
+  for (var i = 0; i < nums.length; i++) {
+    if (nums[i] !== remove) {
+      newNums.push(nums[i]);
+      };
+    };
+  return newNums;
 };
 
-tim.random = function(min, max){
-  if(max == null){
-    max = min;
-    min = 0;
-  }
-  return min + Math.floor(Math.random() * (max - min + 1));
-};
+var origNums = [1,3,6,5,7,9];
+DDD.without(origNums, 5);
