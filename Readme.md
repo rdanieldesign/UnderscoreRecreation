@@ -1,3 +1,3 @@
-## Yo, I'm a Readme
+## Assignment 10 for The Iron Yard
 
-You should probably update me so people looking at your code have an idea what it is being used for :)
+JavaScript practice: re-writing Underscore functions in vanilla js.
